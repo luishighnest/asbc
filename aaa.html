@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Player MPD - Bitmovin</title>
+    <script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+    <style>
+        body { 
+            margin: 0; 
+            background: #000; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            font-family: sans-serif;
+        }
+        /* Contenitore per il player di Bitmovin */
+        #player-container { 
+            width: 100%; 
+            height: 100%; 
+            max-width: 800px; 
+            aspect-ratio: 16/9;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="player-container"></div>
+
+    <script>
+        // Configurazione del lettore e della sorgente video
+        const playerConfig = {
+            // Nota: Bitmovin richiede una chiave di licenza (anche trial/personal) per funzionare in produzione.
+            // Se testi su localhost, spesso funziona anche senza o con una chiave di test/personal sul tuo account.
+            key: "YOUR_BITMOVIN_PLAYER_KEY", 
+            playback: {
+                autoplay: true,
+                muted: false
+            }
+        };
+
+        const sourceConfig = {
+            // Definisce il flusso MPEG-DASH (MPD)
+            dash: "https://g006-lin-it-cmaf-prd-cf.pcdn07.cssott02.com/v~1-0-0_e~1782785351_f~0_g~1_s~55176856-a5df-4990-91c9-8790dfe97ad9_u~0dd96564587fac598e695339a3aca9367db5494019cdd2b7567b04cd465abfbaed65c29353ca67ed8bead8fe496a4867_k~A_l~57_x~fbe424bc4c36e7aaacafcb9c7deef16b/nowitlin2/Content/CMAF_CTR_H1/Live/channel(skysportuno)/master_2hr-all.mpd",
+            // Configurazione della protezione DRM ClearKey
+            drm: {
+                clearkey: [{
+                    keyId: '111803aa48593b040d115d1f0c452293',
+                    key: '8c9d654b1f485cf7c520a64658d0b4ed'
+                }]
+            }
+        };
+
+        // Inizializzazione del player sul div designato
+        const container = document.getElementById('player-container');
+        const player = new bitmovin.player.Player(container, playerConfig);
+
+        player.load(sourceConfig).then(() => {
+            console.log('Il flusso con Bitmovin Player è stato caricato correttamente!');
+        }).catch((error) => {
+            console.error('Errore durante il caricamento del modulo Bitmovin:', error);
+        });
+    </script>
+</body>
+</html>
