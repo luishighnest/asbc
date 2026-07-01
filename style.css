@@ -1,0 +1,23 @@
+/* Azzera tutti i margini e usa tutto lo spazio */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    height: 100dvh; /* Altezza precisa per il mobile */
+    background-color: #000; /* Sfondo completamente nero */
+    overflow: hidden; /* Evita lo scroll */
+}
+
+/* Il player occupa esattamente il 100% dello schermo senza bordi o ombre */
+#player-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

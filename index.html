@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>ACBS Player</title>
+    
+    <link rel="stylesheet" href="https://cdn.bitmovin.com/player/web/8/bitmovinplayer-ui.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="https://cdn.bitmovin.com/player/web/8/bitmovinplayer.js"></script>
+</head>
+<body>
+
+    <!-- Solo il contenitore del player, nient'altro -->
+    <div id="player-container"></div>
+
+    <!-- Sistema Anti-Cache Universale -->
+    <script>
+        // Aggiunge un timestamp fittizio per ingannare la cache di TV e Smartphone
+        var nocache = new Date().getTime();
+        
+        var eventsScript = document.createElement('script');
+        eventsScript.src = "events.js?v=" + nocache;
+        eventsScript.onload = function() {
+            var mainScript = document.createElement('script');
+            mainScript.src = "script.js?v=" + nocache;
+            document.body.appendChild(mainScript);
+        };
+        document.body.appendChild(eventsScript);
+    </script>
+</body>
+</html>
